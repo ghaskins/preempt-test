@@ -50,19 +50,33 @@
 #include <sys/mman.h>
 #include <sys/prctl.h>
 
+#include <boost/version.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition.hpp>
-#include <boost/thread/detail/lock.hpp>
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
 #include <boost/array.hpp>
 #include <boost/program_options.hpp>
 
+#if BOOST_VERSION >= 103600
+
+#include <boost/thread/locks.hpp>
+
+typedef boost::mutex                                     Mutex;
+typedef boost::condition_variable                        CondVar;
+typedef boost::unique_lock<boost::mutex>                 Lock;
+
+#else
+
+#include <boost/thread/detail/lock.hpp>
+
 typedef boost::mutex                                     Mutex;
 typedef boost::condition                                 CondVar;
 typedef boost::detail::thread::scoped_lock<boost::mutex> Lock;
+
+#endif
 
 #define nano2sec(nan) ((nan) / 1000000000ULL)
 #define nano2ms(nan) ((nan) / 1000000ULL)
