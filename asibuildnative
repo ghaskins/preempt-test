@@ -1,0 +1,1 @@
+make INCLUDES="-I../Spidr/boost_1_53_0/ -L../Spidr/boost_1_53_0/stage/native/lib"
