@@ -361,7 +361,7 @@ std::ostream& operator<<(std::ostream &os, const Stats &s)
 	   << "us @ row " << s.m_min.first << "]"
 	   << " [max: " <<  nano2usec(s.m_max.second)
 	   << "us @ row " << s.m_max.first << "]"
-	   << " {ave: " << s.m_ave << "us]";
+	   << " [ave: " << s.m_ave << "us]";
 }
 
 bool compare_finish(const WorkerPtr &rhs, const WorkerPtr &lhs)
