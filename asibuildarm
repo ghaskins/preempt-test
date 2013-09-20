@@ -1,1 +1,0 @@
-make INCLUDES="-I../AsiSw/boost_1_54_0/ -L../AsiSw/boost_1_54_0/stage/arm/lib" CROSS_COMPILE=arm-linux-gnueabihf- ARCH=arm

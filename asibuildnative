@@ -1,1 +1,0 @@
-make INCLUDES="-I../AsiSw/boost_1_54_0/ -L../AsiSw/boost_1_54_0/stage/x86/lib"
