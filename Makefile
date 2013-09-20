@@ -1,12 +1,16 @@
 
 CFLAGS += -g -O0
-ARCH=$(shell uname -m)
+ARCH ?= $(shell uname -m)
 OBJDIR ?= obj/$(ARCH)
-LIBRARIES+=-lboost_thread-mt
+LIBRARIES+=-lboost_thread
 LIBRARIES+=-lboost_program_options
+LIBRARIES+=-lboost_system
+LIBRARIES+=-lrt
+LIBRARIES+=-lpthread
 PREFIX ?= /usr/local
 NAME=preempt-test
 INSTPATH=$(PREFIX)/bin
+CXX=$(CROSS_COMPILE)g++
 
 VERSION=1.0
 RELEASE=1
@@ -35,7 +39,7 @@ $(OBJDIR)/%:
 	$(CXX) $(CFLAGS) $(INCLUDES) -o $@ $(filter %.o %.a,$+) $(LIBDIR) $(LIBRARIES)
 
 clean: 
-	@rm -f $(OBJDIR)/*
+	@rm -rf $(OBJDIR)/
 
 install: $(OUTPUT)
 	@mkdir -p $(INSTPATH)

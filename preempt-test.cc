@@ -361,7 +361,7 @@ std::ostream& operator<<(std::ostream &os, const Stats &s)
 	   << "us @ row " << s.m_min.first << "]"
 	   << " [max: " <<  nano2usec(s.m_max.second)
 	   << "us @ row " << s.m_max.first << "]"
-	   << " {ave: " << s.m_ave << "us]";
+	   << " [ave: " << s.m_ave << "us]";
 }
 
 bool compare_finish(const WorkerPtr &rhs, const WorkerPtr &lhs)
@@ -577,8 +577,6 @@ int main(int argc, char **argv)
 	po::store(parse_command_line(argc, argv, desc), vm);
 	po::notify(vm);
 
-	std::cout << "Starting test with " << nr_workers
-		  << " threads on " << nr_cpus << " cpus"<< std::endl;
 
 	try {
 		set_prio(nr_workers+1);
@@ -590,7 +588,10 @@ int main(int argc, char **argv)
 
 	// Calibrate the system to our run-interval
 	delay = Delay(run_interval);
-
+    if(vm.count("help")) {
+        std::cout << desc ;
+        return 0;
+    }
 	if(vm.count("affine"))
 		affine=true;
 
@@ -599,6 +600,11 @@ int main(int argc, char **argv)
 
 	if(vm.count("logdev"))
 		logdev = LogdevPtr(new Logdev());
+
+	std::cout << "Starting test with " << nr_workers
+		  << " threads on " << nr_cpus << " cpus"
+          << ((affine == true) ? " with cpu affinity" : "") 
+          << std::endl;
 
 	run(nr_workers);
 
