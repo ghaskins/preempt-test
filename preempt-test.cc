@@ -588,8 +588,7 @@ int main(int argc, char **argv)
 
 	// Calibrate the system to our run-interval
 	delay = Delay(run_interval);
-    if(vm.count("help"))
-    {
+    if(vm.count("help")) {
         std::cout << desc ;
         return 0;
     }

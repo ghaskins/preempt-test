@@ -1,6 +1,6 @@
 
 CFLAGS += -g -O0
-ARCH ?= native
+ARCH ?= $(shell uname -m)
 OBJDIR ?= obj/$(ARCH)
 LIBRARIES+=-lboost_thread
 LIBRARIES+=-lboost_program_options
